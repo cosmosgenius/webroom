@@ -3,16 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title><%= title %></title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/style.css">
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/static/js/jquery.js"></script>
+
 </head>
 <body>
     <div class="container">
         <header><%= room_title %></header>
-        <div class="inner-container">
-            <div class="chatpanel"></div>
-            <div class="userlist"></div>
+        <div id="userdetail">
+            <span>Username:<input type="text"/></span>
+            <button onClick="getUsername();">Init</button>
+        </div>
+        <div class="inner-container clearfix">
+            <div class="chatpanel">
+                <div class="chatwindow">
+                    
+                </div>
+                <div class="inputwindow">
+                    <input id="chatinput" type="text">
+                </div>
+            </div>
+            <ul class="userlist">
+            </ul>
         </div>
         <footer>&copy; Webroom</footer>
     </div>
+
+    <script>
+        function initWebRoom(username){
+            var socket = io.connect();
+            send = function(msg){
+                socket.send(msg);
+            };
+            console.log(socket);
+            socket.on('message',function(msg){
+                console.log(msg);
+            })
+
+            socket.emit('username',username);
+        }
+
+        (function($){
+            listcontroller = function(id){
+                var list_obj = $(id);
+            }
+
+            chatcontroller = function(id){
+                var chat_obj = $(id);
+            }
+        })(jQuery);
+
+        function getUsername(){
+            var username = document.querySelector("#userdetail input")
+            initWebRoom(username.value)
+        }
+    </script>
 </body>
 </html>
