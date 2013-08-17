@@ -1,0 +1,38 @@
+@import "compass/css3/box-shadow";
+
+header,footer{
+    text-align: center;
+}
+
+.container{
+    min-width:400px;
+}
+
+.chatpanel{
+    width:65%;
+    float:left;
+}
+
+.userlist{
+    @include box-shadow(black 0 0 5px);
+    height:500px;
+    float:right;
+    width:33%;
+}
+
+.inner-container{
+    margin: 20px auto;
+}
+
+.chatwindow{
+    @include box-shadow(black 0 0 5px);
+    height:500px;
+}
+
+.inputwindow{
+    margin-top: 20px;
+    input{
+        width:100%;    
+    }
+    width:100%;
+}

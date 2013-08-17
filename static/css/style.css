@@ -1,0 +1,48 @@
+/* line 3, ../sass/style.scss */
+header, footer {
+  text-align: center;
+}
+
+/* line 7, ../sass/style.scss */
+.container {
+  min-width: 400px;
+}
+
+/* line 11, ../sass/style.scss */
+.chatpanel {
+  width: 65%;
+  float: left;
+}
+
+/* line 16, ../sass/style.scss */
+.userlist {
+  -webkit-box-shadow: black 0 0 5px;
+  -moz-box-shadow: black 0 0 5px;
+  box-shadow: black 0 0 5px;
+  height: 500px;
+  float: right;
+  width: 33%;
+}
+
+/* line 23, ../sass/style.scss */
+.inner-container {
+  margin: 20px auto;
+}
+
+/* line 27, ../sass/style.scss */
+.chatwindow {
+  -webkit-box-shadow: black 0 0 5px;
+  -moz-box-shadow: black 0 0 5px;
+  box-shadow: black 0 0 5px;
+  height: 500px;
+}
+
+/* line 32, ../sass/style.scss */
+.inputwindow {
+  margin-top: 20px;
+  width: 100%;
+}
+/* line 34, ../sass/style.scss */
+.inputwindow input {
+  width: 100%;
+}
