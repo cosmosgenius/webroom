@@ -1,1 +1,1 @@
-web: node run runserver.js
+web: node runserver.js
