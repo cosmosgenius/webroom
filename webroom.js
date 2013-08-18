@@ -8,7 +8,7 @@
     app.set('view engine', 'ejs');
     app.use('/static',express.static(__dirname + "/static"));
 
-    usernames={};
+    usernames={'length':0};
     app.get('/',function(req, res){
         var param = {
             room_title:'Webroom dev',
@@ -22,33 +22,31 @@
     };
 
     io.sockets.on("connection",function(socket){
+        usernames[socket.id] = {'uname': "user"+usernames.length};
+        usernames.length +=1;
+        socket.emit("uname",usernames[socket.id].uname);
         socket.on("message",handle_message);
 
-        socket.on("username",function(uname){
-            if(usernames[uname]){
-                socket.emit('message','Username Exist');
-                socket.disconnect();
-                return;
+        socket.on("changeuname",function(uname){
+            for(var x in username){
+                if(username[x].uname == uname){
+                    socket.emit('system','Username Exist');
+                    return;
+                }
             }
-            usernames[uname] = socket;
-            socket.emit('message','Welcome, '+uname);
-            socket.broadcast.emit('message',uname + ' has entered the room');
+            usernames[socket.id].uname = uname;
         });
 
         socket.on("disconnect",function(val){
-            var uname;
-            for (var x in usernames){
-                if(usernames[x] == socket){
-                    uname = x;
-                    break;
-                }
-            }
-            socket.broadcast.emit('message', uname + ' left room');
-            delete usernames[uname];
+            delete usernames[socket.id];
+            usernames.length -= 1;
         });
+
+        function handle_message(packet){
+            packet['from']=usernames[socket.id].uname;
+            socket.broadcast.emit('message',packet);
+        }
     });
 
-    function handle_message(msg){
-        socket.broadcast.emit('message',msg);
-    }
+    
 })();

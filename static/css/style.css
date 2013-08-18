@@ -19,9 +19,9 @@ header, footer {
   -webkit-box-shadow: black 0 0 5px;
   -moz-box-shadow: black 0 0 5px;
   box-shadow: black 0 0 5px;
-  height: 500px;
   float: right;
   width: 33%;
+  padding: 5px;
 }
 
 /* line 23, ../sass/style.scss */
@@ -34,15 +34,16 @@ header, footer {
   -webkit-box-shadow: black 0 0 5px;
   -moz-box-shadow: black 0 0 5px;
   box-shadow: black 0 0 5px;
-  height: 500px;
+  overflow: auto;
+  padding: 5px;
 }
 
-/* line 32, ../sass/style.scss */
+/* line 33, ../sass/style.scss */
 .inputwindow {
   margin-top: 20px;
   width: 100%;
 }
-/* line 34, ../sass/style.scss */
+/* line 35, ../sass/style.scss */
 .inputwindow input {
   width: 100%;
 }

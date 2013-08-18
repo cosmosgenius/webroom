@@ -15,9 +15,9 @@ header,footer{
 
 .userlist{
     @include box-shadow(black 0 0 5px);
-    height:500px;
     float:right;
     width:33%;
+    padding:5px;
 }
 
 .inner-container{
@@ -26,7 +26,8 @@ header,footer{
 
 .chatwindow{
     @include box-shadow(black 0 0 5px);
-    height:500px;
+    overflow: auto;
+    padding:5px;
 }
 
 .inputwindow{
