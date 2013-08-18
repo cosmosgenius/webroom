@@ -101,11 +101,10 @@
             var socket = io.connect();
             send = function(msg){
                 var packet = {'msg':msg,'to':''};
-                socket.send(packet);
+                socket.emit("wbmsg",packet);
             };
-            socket.on('message',function(packet){
-                console.log(packet);
-                chatlist.add(packet);
+            socket.on('wbmsg',function(packet){
+                chatlist.add(packet['from']+" : "+packet['msg']);
             })
 
             socket.on('uname',function(uname){
