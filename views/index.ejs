@@ -7,73 +7,7 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="/socket.io/socket.io.js"></script>
     <script src="/static/js/jquery.js"></script>
-    <script>
-        (function($){
-            listcontroller = function(id){
-                var list_obj = $(id);
-                var items = [];
-
-                this.add = function(item){
-                    items.push(item);
-                    update_view();
-                }
-
-                this.removeByName = function(item){
-                    for(x in items){
-                        if(items[x]==item){
-                            this.removeByIndex(x);
-                        }
-                    }
-                }
-
-                this.removeByIndex = function(index){
-                    items.splice(index,1);
-                    update_view();
-                }
-
-                function update_view(){
-                    var item_col = "";
-                    items.sort();
-                    for (var x in items){
-                        item_col += itemMarkup(items[x]);
-                    }
-                    list_obj.html(item_col);
-                }
-
-                function itemMarkup(item){
-                    return "<li id="+item+">"+item+"</li>"
-                }
-            }
-
-            chatcontroller = function(id){
-                var chat_obj = $(id);
-                var limit = 16;
-                var chat_history = [];
-
-                this.add = function(item){
-                    chat_history.push(item);
-                    update_view();
-                }
-
-                this.clear = function (){
-                    chat_history = [];
-                    update_view();
-                }
-
-                function update_view(){
-                    var chat_col = "";
-                    for (var x = 0; x < chat_history.length;x++){
-                        chat_col += itemMarkup(chat_history[x]);
-                    }
-                    chat_obj.html(chat_col);
-                }
-
-                function itemMarkup(item){
-                    return "<p>"+item+"</p>"
-                }
-            }
-        })(jQuery);
-    </script>
+    <script src="/static/js/app.js"></script>
 </head>
 <body>
     <div class="container">
@@ -100,11 +34,11 @@
         (function(){
             var socket = io.connect();
             send = function(msg){
-                var packet = {'msg':msg,'to':''};
+                var packet = {'msg':msg,'to':'','time':new Date()};
                 socket.emit("wbmsg",packet);
             };
             socket.on('wbmsg',function(packet){
-                chatlist.add(packet['from']+" : "+packet['msg']);
+                chatlist.add(packet);
             })
 
             socket.on('uname',function(uname){
@@ -123,7 +57,7 @@
             if(e.which == 13){
                 msg = $(this).val();
                 $(this).val('');
-                chatlist.add("You: "+ msg);
+                chatlist.add({'uname':'You','msg':msg});
                 send(msg);
             }
         })
