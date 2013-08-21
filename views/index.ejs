@@ -14,10 +14,19 @@
 <body>
     <div class="container">
         <header><%= room_title %></header>
-        <div id="userdetail">
-            <span>Username:<input type="text" /></span>
-            <button class="btn" onClick="getUsername();">Init</button>
-        </div>
+        <form class="form-horizontal" role="form" id="userdetail">
+            <div class="form-group">
+                <label for="Uname" class="col-xs-3 col-sm-4 control-label">Username</label>
+                <div class="col-xs-9 col-sm-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="Uname" placeholder="Username">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary">Set</button>    
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
         <div class="inner-container clearfix">
             <div class="chatpanel">
                 <div class="chatwindow">
