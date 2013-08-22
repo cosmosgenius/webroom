@@ -1,4 +1,5 @@
 @import "compass/css3/box-shadow";
+@import "compass/css3/border-radius";
 
 header,footer{
     text-align: center;
@@ -14,7 +15,8 @@ header,footer{
 }
 
 .userlist{
-    @include box-shadow(black 0 0 5px);
+    @include box-shadow(gray 0 0 3px);
+    @include border-radius(2px);
     float:right;
     width:25%;
     padding:5px;
@@ -25,7 +27,8 @@ header,footer{
 }
 
 .chatwindow{
-    @include box-shadow(black 0 0 5px);
+    @include box-shadow(gray 0 0 3px);
+    @include border-radius(2px);
     overflow: auto;
     padding:5px;
 }

@@ -1,60 +1,70 @@
-/* line 3, ../sass/style.scss */
+/* line 4, ../sass/style.scss */
 header, footer {
   text-align: center;
 }
 
-/* line 7, ../sass/style.scss */
+/* line 8, ../sass/style.scss */
 .container {
   min-width: 320px;
 }
 
-/* line 11, ../sass/style.scss */
+/* line 12, ../sass/style.scss */
 .chatpanel {
   width: 73%;
   float: left;
 }
 
-/* line 16, ../sass/style.scss */
+/* line 17, ../sass/style.scss */
 .userlist {
-  -webkit-box-shadow: black 0 0 5px;
-  -moz-box-shadow: black 0 0 5px;
-  box-shadow: black 0 0 5px;
+  -webkit-box-shadow: gray 0 0 3px;
+  -moz-box-shadow: gray 0 0 3px;
+  box-shadow: gray 0 0 3px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
   float: right;
   width: 25%;
   padding: 5px;
 }
 
-/* line 23, ../sass/style.scss */
+/* line 25, ../sass/style.scss */
 .inner-container {
   margin: 20px auto;
 }
 
-/* line 27, ../sass/style.scss */
+/* line 29, ../sass/style.scss */
 .chatwindow {
-  -webkit-box-shadow: black 0 0 5px;
-  -moz-box-shadow: black 0 0 5px;
-  box-shadow: black 0 0 5px;
+  -webkit-box-shadow: gray 0 0 3px;
+  -moz-box-shadow: gray 0 0 3px;
+  box-shadow: gray 0 0 3px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
   overflow: auto;
   padding: 5px;
 }
 
-/* line 33, ../sass/style.scss */
+/* line 36, ../sass/style.scss */
 .inputwindow {
   margin-top: 20px;
   width: 100%;
 }
-/* line 35, ../sass/style.scss */
+/* line 38, ../sass/style.scss */
 .inputwindow input {
   width: 100%;
 }
 
 @media (max-width: 500px) {
-  /* line 42, ../sass/style.scss */
+  /* line 45, ../sass/style.scss */
   .userlist {
     display: none;
   }
 
-  /* line 46, ../sass/style.scss */
+  /* line 49, ../sass/style.scss */
   .chatpanel {
     width: 100%;
   }
