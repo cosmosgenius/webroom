@@ -10,22 +10,42 @@ users.prototype.add = function(usrObj){
 };
 
 users.prototype.remove = function(usrObj){
-    var obj = null;
-    var index = -1;
+    var index = this.search(usrObj);
+    if(index !== null){
+        return this.list.splice(index, 1);
+    }
+    return null;
+};
+
+users.prototype.search = function (usrObj){
+    var i;
     if(!usrObj)
         return;
-    var property = 'uname' in usrObj ? 'uname':'socket';
-    if(!(property in usrObj))
-        return;
-    for(var i = 0 ; i < this.list.length ; i++){
-        if(list[i][property] == usrObj[property]){
-            index = i;
+    if(usrObj.socket){
+        for(i = 0 ; i < this.list.length ; i++){
+            if(this.list[i].socket == usrObj.socket){
+                return i;
+            }
         }
     }
     
-    if (index != -1){
-        obj = list.splice(index, 1);
+    if(usrObj.uname){
+        for(i = 0 ; i < this.list.length ; i++){
+            if(this.list[i].uname == usrObj.uname){
+                return i;
+            }
+        }
     }
+    return null;
+};
 
-    return obj;
+users.prototype.update = function (usrObj){
+    if(!usrObj.uname){
+        return;
+    }
+    var index = this.search({'socket':usrObj.socket});
+    var isExist = this.search({'uname':usrObj.uname});
+    if(index !== null && isExist === null){
+        this.list[i] = usrObj;
+    }
 };
