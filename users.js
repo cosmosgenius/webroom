@@ -1,5 +1,4 @@
-module.exports = users;
-
+module.exports = new users();
 
 function users (){
     this.list = [];
@@ -10,7 +9,7 @@ users.prototype.add = function(usrObj){
 };
 
 users.prototype.remove = function(usrObj){
-    var index = this.search(usrObj);
+    var index = _search(this,usrObj);
     if(index !== null){
         return this.list.splice(index, 1);
     }
@@ -18,34 +17,43 @@ users.prototype.remove = function(usrObj){
 };
 
 users.prototype.search = function (usrObj){
+    var index = _search(this,usrObj);
+    if(index !== null)
+        return this.list[index];
+    return null;
+};
+
+users.prototype.update = function (usrObj){
+    if(!usrObj.uname){
+        return null;
+    }
+    var index = _search(this,{'socket':usrObj.socket});
+    var isExist = this.search({'uname':usrObj.uname});
+    if(index !== null && isExist === null){
+        this.list[index] = usrObj;
+        return this.list[index];
+    }
+    return null;
+};
+
+function _search(self,usrObj){
     var i;
     if(!usrObj)
         return;
     if(usrObj.socket){
-        for(i = 0 ; i < this.list.length ; i++){
-            if(this.list[i].socket == usrObj.socket){
+        for(i = 0 ; i < self.list.length ; i++){
+            if(self.list[i].socket == usrObj.socket){
                 return i;
             }
         }
     }
     
     if(usrObj.uname){
-        for(i = 0 ; i < this.list.length ; i++){
-            if(this.list[i].uname == usrObj.uname){
+        for(i = 0 ; i < self.list.length ; i++){
+            if(self.list[i].uname == usrObj.uname){
                 return i;
             }
         }
     }
     return null;
-};
-
-users.prototype.update = function (usrObj){
-    if(!usrObj.uname){
-        return;
-    }
-    var index = this.search({'socket':usrObj.socket});
-    var isExist = this.search({'uname':usrObj.uname});
-    if(index !== null && isExist === null){
-        this.list[i] = usrObj;
-    }
-};
+}
