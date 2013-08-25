@@ -14,14 +14,14 @@
 <body>
     <div class="container">
         <header><%= room_title %></header>
-        <form class="form-horizontal" role="form" id="userdetail">
+        <form class="form-horizontal" role="form" id="userdetail" onsubmit="return false;">
             <div class="form-group">
                 <label for="Uname" class="col-xs-3 col-sm-4 control-label">Username</label>
                 <div class="col-xs-9 col-sm-4">
                     <div class="input-group">
                         <input type="text" class="form-control" id="Uname" placeholder="Username">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary">Set</button>    
+                            <button type="button" class="btn btn-primary" onclick="sendusername();">Set</button>    
                         </span>
                     </div>
                 </div>
@@ -51,17 +51,17 @@
                 chatlist.add(packet);
             })
 
-            socket.on('uname',function(uname){
-                username=uname;
+            socket.on('wbsys',function(packet){
+                console[packet.type](packet.msg);
             })
+
+            sendusername = function(){
+                socket.emit("user new",{'uname':$("#Uname").val()});
+                return false;
+            }
         })();
         var userlist = new listcontroller(".userlist");
         var chatlist = new chatcontroller(".chatwindow");
-
-        function getUsername(){
-            var username = $("#userdetail input")
-            initWebRoom(username.val());
-        }
 
         $("#chatinput").on("keypress",function(e){
             if(e.which == 13){

@@ -1,18 +1,17 @@
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
-    io = require('socket.io').listen(server);
+    io = require('socket.io').listen(server),
+    userlist = require('./users');
 
 app.use(express.logger('dev'));
 app.set('view engine', 'ejs');
 app.use('/static',express.static(__dirname + "/static"));
-
 io.configure(function(){
     io.set("transports",["xhr-polling"]);
     io.set("polling duration",10);
 });
 
-usernames={'length':0};
 app.get('/',function(req, res){
     var param = {
         room_title:'Webroom dev',
@@ -26,28 +25,56 @@ module.exports = function(config){
 };
 
 io.sockets.on("connection",function(socket){
-    usernames[socket.id] = {'uname': "user"+usernames.length};
-    usernames.length +=1;
-    socket.emit("uname",usernames[socket.id].uname);
-    socket.on("wbmsg",handle_message);
+    var currentUser;
+    socket.on("disconnect",function(val){
+        console.dir(userlist.remove({'socket':socket.id}));
+    });
 
-    socket.on("changeuname",function(uname){
-        for(var x in username){
-            if(username[x].uname == uname){
-                socket.emit('system','Username Exist');
-                return;
+    socket.on("user new",function(packet){
+        if(packet.uname){
+            if(userlist.search(packet) === null){
+                packet.socket = socket.id;
+                userlist.add(packet);
+                currentUser = packet;
+                wbsys("Welcome, "+packet.uname);
+                wbsys(packet.uname + " has entered room","broadcast");
+            }else{
+                wbsys("Username already exist", "error");
             }
         }
-        usernames[socket.id].uname = uname;
     });
 
-    socket.on("disconnect",function(val){
-        delete usernames[socket.id];
-        usernames.length -= 1;
+    socket.on("user change",function(packet){
+        packet.socket = socket.id;
+        userlist.update(packet);
     });
 
-    function handle_message(packet){
-        packet['from']=usernames[socket.id].uname;
-        socket.broadcast.emit('wbmsg',packet);
+    socket.on("wbmsg",handle_msg);
+
+    function wbsys(msg,type){
+        var packet = {'msg':msg,'type':type};
+        if(!type){
+            packet.type = 'info';
+        }
+        if(type == "broadcast"){
+            socket.broadcast.emit("wbsys",packet);
+        }else{
+            socket.emit("wbsys",packet);
+        }
+        
+    }
+
+    function handle_msg(packet){
+        if(!currentUser){
+            wbsys("Please register a username","error");
+            return;
+        }
+
+        if(packet.msg){
+            packet.from = currentUser.uname;
+            socket.broadcast.emit("wbmsg",packet);
+        }else{
+            wbsys("Require <msg> param","error");
+        }
     }
 });
