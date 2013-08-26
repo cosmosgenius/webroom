@@ -36,6 +36,10 @@ users.prototype.update = function (usrObj){
     return null;
 };
 
+users.prototype.getUsers = function (){
+
+};
+
 function _search(self,usrObj){
     var i;
     if(!usrObj)
@@ -56,4 +60,12 @@ function _search(self,usrObj){
         }
     }
     return null;
+}
+
+function user(params){
+    if(params){
+        for (var x in params){
+            this[x] = params[x];
+        }
+    }
 }
