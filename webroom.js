@@ -37,7 +37,7 @@ io.sockets.on("connection",function(socket){
                 userlist.add(packet);
                 currentUser = packet;
                 wbsys("Welcome, "+packet.uname);
-                wbsys(packet.uname + " has entered room","broadcast");
+                sendUsers(packet.uname);
             }else{
                 wbsys("Username already exist", "error");
             }
@@ -47,9 +47,18 @@ io.sockets.on("connection",function(socket){
     socket.on("user change",function(packet){
         packet.socket = socket.id;
         userlist.update(packet);
+        sendUsers();
     });
 
     socket.on("wbmsg",handle_msg);
+
+    function sendUsers(uname){
+        if(uname){
+            wbsys(uname + " has entered room","broadcast");
+        }
+        var list = [];
+        io.sockets.emit("user list",userlist.getUsers());
+    }
 
     function wbsys(msg,type){
         var packet = {'msg':msg,'type':type};

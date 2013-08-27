@@ -16,6 +16,11 @@
             }
         };
 
+        this.set = function(list){
+            items = list.slice();
+            update_view();
+        };
+
         this.removeByIndex = function(index){
             items.splice(index,1);
             update_view();
@@ -63,7 +68,7 @@
 
         function itemMarkup(item){
             var ret;
-            ret = "<p>"+item['uname']+": "+item['msg']+"</p>";
+            ret = "<p>"+item['from']+": "+item['msg']+"</p>";
             return  ret;
         }
     };

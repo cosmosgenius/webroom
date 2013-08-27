@@ -5,7 +5,7 @@ function users (){
 }
 
 users.prototype.add = function(usrObj){
-    this.list.push(usrObj);
+    this.list.push(new user(usrObj));
 };
 
 users.prototype.remove = function(usrObj){
@@ -37,7 +37,10 @@ users.prototype.update = function (usrObj){
 };
 
 users.prototype.getUsers = function (){
-
+    var ulist = [];
+    for(var i = 0 ; i < this.list.length;i++)
+        ulist.push(this.list[i].uname);
+    return ulist;
 };
 
 function _search(self,usrObj){

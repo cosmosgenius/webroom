@@ -41,6 +41,8 @@
     </div>
     <script>
         var username;
+        var userlist = new listcontroller(".userlist");
+        var chatlist = new chatcontroller(".chatwindow");
         (function(){
             var socket = io.connect();
             send = function(msg){
@@ -52,7 +54,11 @@
             })
 
             socket.on('wbsys',function(packet){
-                console[packet.type](packet.msg);
+                console.log(packet.msg);
+            })
+
+            socket.on('user list',function(list){
+                userlist.set(list);
             })
 
             sendusername = function(){
@@ -60,14 +66,13 @@
                 return false;
             }
         })();
-        var userlist = new listcontroller(".userlist");
-        var chatlist = new chatcontroller(".chatwindow");
+        
 
         $("#chatinput").on("keypress",function(e){
             if(e.which == 13){
                 msg = $(this).val();
                 $(this).val('');
-                chatlist.add({'uname':'You','msg':msg});
+                chatlist.add({'from':'You','msg':msg});
                 send(msg);
             }
         })
