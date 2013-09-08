@@ -26,15 +26,20 @@ header, footer {
   border-radius: 2px;
   float: right;
   width: 25%;
-  padding: 5px;
+  list-style-type: none;
+  padding: 10px;
+}
+/* line 25, ../sass/style.scss */
+.userlist li {
+  padding: 3px;
 }
 
-/* line 25, ../sass/style.scss */
+/* line 30, ../sass/style.scss */
 .inner-container {
   margin: 20px auto;
 }
 
-/* line 29, ../sass/style.scss */
+/* line 34, ../sass/style.scss */
 .chatwindow {
   -webkit-box-shadow: gray 0 0 3px;
   -moz-box-shadow: gray 0 0 3px;
@@ -48,23 +53,23 @@ header, footer {
   padding: 5px;
 }
 
-/* line 36, ../sass/style.scss */
+/* line 41, ../sass/style.scss */
 .inputwindow {
   margin-top: 20px;
   width: 100%;
 }
-/* line 38, ../sass/style.scss */
+/* line 43, ../sass/style.scss */
 .inputwindow input {
   width: 100%;
 }
 
-@media (max-width: 500px) {
-  /* line 45, ../sass/style.scss */
+@media (max-width: 768px) {
+  /* line 50, ../sass/style.scss */
   .userlist {
     display: none;
   }
 
-  /* line 49, ../sass/style.scss */
+  /* line 54, ../sass/style.scss */
   .chatpanel {
     width: 100%;
   }

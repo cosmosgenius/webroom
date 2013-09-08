@@ -19,7 +19,12 @@ header,footer{
     @include border-radius(2px);
     float:right;
     width:25%;
-    padding:5px;
+    list-style-type: none;
+    padding: 10px;
+
+    li{
+        padding:3px;
+    }
 }
 
 .inner-container{
@@ -41,7 +46,7 @@ header,footer{
     width:100%;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     .userlist{
         display:none;
     }
